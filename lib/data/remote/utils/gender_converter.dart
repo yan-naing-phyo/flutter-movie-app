@@ -1,4 +1,4 @@
-import 'package:flutter_movie_app/data/models/person.dart';
+import 'package:flutter_movie_app/data/models/models.dart';
 
 class GenderConverter {
   const GenderConverter._();

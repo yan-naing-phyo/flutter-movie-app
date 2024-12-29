@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/data/models/tv_show.dart';
-import 'package:flutter_movie_app/ui/home/home.dart';
+import 'package:flutter_movie_app/ui/widgets/widgets.dart';
 
 class TvShowList extends StatelessWidget {
   const TvShowList({super.key, required this.tvShows});

@@ -39,10 +39,26 @@ class FakeMovieApi implements MovieApi {
 
     return MovieListResponse.fromJson(jsonDecode(json));
   }
+
+  @override
+  Future<PersonListResponse> getPopularPeople() async {
+    final json =
+        await rootBundle.loadString('assets/popular_people_response.json');
+
+    return PersonListResponse.fromJson(jsonDecode(json));
+  }
+
+  @override
+  Future<MovieDetailsResponse> getMovieDetails(String movieId) async {
+    final json =
+        await rootBundle.loadString('assets/movie_details_response.json');
+
+    return MovieDetailsResponse.fromJson(jsonDecode(json));
+  }
   
   @override
-  Future<PersonListResponse> getPopularPeople() {
-    // TODO: implement getPopularPeople
+  Future<MovieCreditsResponse> getMovieCredits(String movieId) {
+    // TODO: implement getMovieCredits
     throw UnimplementedError();
   }
 }

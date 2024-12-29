@@ -41,6 +41,18 @@ class _FakePersonListResponse_2 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+class _FakeMovieDetailsResponse_3 extends _i1.SmartFake
+    implements _i2.MovieDetailsResponse {
+  _FakeMovieDetailsResponse_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeMovieCreditsResponse_4 extends _i1.SmartFake
+    implements _i2.MovieCreditsResponse {
+  _FakeMovieCreditsResponse_4(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [MovieApi].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -158,4 +170,44 @@ class MockMovieApi extends _i1.Mock implements _i3.MovieApi {
             ),
           )
           as _i4.Future<_i2.PersonListResponse>);
+
+  @override
+  _i4.Future<_i2.MovieDetailsResponse> getMovieDetails(String? movieId) =>
+      (super.noSuchMethod(
+            Invocation.method(#getMovieDetails, [movieId]),
+            returnValue: _i4.Future<_i2.MovieDetailsResponse>.value(
+              _FakeMovieDetailsResponse_3(
+                this,
+                Invocation.method(#getMovieDetails, [movieId]),
+              ),
+            ),
+            returnValueForMissingStub:
+                _i4.Future<_i2.MovieDetailsResponse>.value(
+                  _FakeMovieDetailsResponse_3(
+                    this,
+                    Invocation.method(#getMovieDetails, [movieId]),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.MovieDetailsResponse>);
+
+  @override
+  _i4.Future<_i2.MovieCreditsResponse> getMovieCredits(String? movieId) =>
+      (super.noSuchMethod(
+            Invocation.method(#getMovieCredits, [movieId]),
+            returnValue: _i4.Future<_i2.MovieCreditsResponse>.value(
+              _FakeMovieCreditsResponse_4(
+                this,
+                Invocation.method(#getMovieCredits, [movieId]),
+              ),
+            ),
+            returnValueForMissingStub:
+                _i4.Future<_i2.MovieCreditsResponse>.value(
+                  _FakeMovieCreditsResponse_4(
+                    this,
+                    Invocation.method(#getMovieCredits, [movieId]),
+                  ),
+                ),
+          )
+          as _i4.Future<_i2.MovieCreditsResponse>);
 }

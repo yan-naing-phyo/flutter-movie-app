@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/data/models/movie.dart';
-import 'package:flutter_movie_app/ui/home/home.dart';
+import 'package:flutter_movie_app/ui/movie_details/view/movie_details_page.dart';
+import 'package:flutter_movie_app/ui/widgets/widgets.dart';
 
 class MovieCarousel extends StatefulWidget {
   const MovieCarousel({
@@ -52,16 +53,32 @@ class _MovieCarouselState extends State<MovieCarousel> {
     super.dispose();
   }
 
+  void _goToMovieDetailsScreen(String movieId) {
+    Navigator.of(context).push(
+      MovieDetailsPage.route(movieId),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: PageView.builder(
         controller: _pageController,
-        itemBuilder: (context, index) => _CarouselItem(
-          movie: widget.movies[index],
-        ),
+        itemBuilder: (context, index) =>
+            _buildCarouselItem(widget.movies[index]),
         itemCount: widget.movies.length,
+      ),
+    );
+  }
+
+  Widget _buildCarouselItem(Movie movie) {
+    return InkWell(
+      onTap: () {
+        _goToMovieDetailsScreen(movie.id.toString());
+      },
+      child: _CarouselItem(
+        movie: movie,
       ),
     );
   }

@@ -146,8 +146,60 @@ void main() {
         when(httpClient.get(any))
             .thenAnswer((_) async => http.Response('{}', 400));
 
-        expect(() async => tmdbApi.getPopularPeople(),
-            throwsA(isA<PersonRequestFailure>()));
+        expect(
+          () async => tmdbApi.getPopularPeople(),
+          throwsA(isA<PersonRequestFailure>()),
+        );
+      });
+    });
+
+    group('getMovieDetails', () {
+      test('calls getMovieDetails end-point with correct movieId', () async {
+        final movieId = '123';
+
+        await tmdbApi.getMovieDetails(movieId);
+
+        verify(
+          httpClient.get(
+            Uri.https('api.themoviedb.org', '/3/movie/$movieId',
+                {'api_key': _mockApiKey}),
+          ),
+        ).called(1);
+      });
+
+      test('throws MovieDetailsRequestFailure on non-200 response', () async {
+        when(httpClient.get(any))
+            .thenAnswer((_) async => http.Response('{}', 400));
+
+        expect(
+          () async => tmdbApi.getMovieDetails('123'),
+          throwsA(isA<MovieDetailsRequestFailure>()),
+        );
+      });
+    });
+
+    group('getMovieCredits', () {
+      test('calls getMovieCredits end-point with correct movieId', () async {
+        final movieId = '123';
+
+        await tmdbApi.getMovieCredits(movieId);
+
+        verify(
+          httpClient.get(
+            Uri.https('api.themoviedb.org', '/3/movie/$movieId/credits',
+                {'api_key': _mockApiKey}),
+          ),
+        ).called(1);
+      });
+
+      test('throws MovieCreditsRequestFailure when status code is non-200', () {
+        when(httpClient.get(any))
+            .thenAnswer((_) async => http.Response('{}', 400));
+
+        expect(
+          () async => tmdbApi.getMovieCredits('123'),
+          throwsA(isA<MovieCreditsRequestFailure>()),
+        );
       });
     });
   });

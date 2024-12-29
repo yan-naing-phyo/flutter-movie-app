@@ -3,15 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:flutter_movie_app/data/models/movie.dart' as _i4;
-import 'package:flutter_movie_app/data/models/person.dart' as _i8;
-import 'package:flutter_movie_app/data/models/tv_show.dart' as _i6;
+import 'package:flutter_movie_app/data/models/models.dart' as _i2;
 import 'package:flutter_movie_app/data/repositories/movie_repository.dart'
-    as _i2;
+    as _i3;
 import 'package:flutter_movie_app/data/repositories/person_repository.dart'
-    as _i7;
+    as _i6;
 import 'package:flutter_movie_app/data/repositories/tv_show_repository.dart'
     as _i5;
 import 'package:mockito/mockito.dart' as _i1;
@@ -30,53 +28,88 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeMovieDetails_0 extends _i1.SmartFake implements _i2.MovieDetails {
+  _FakeMovieDetails_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [MovieRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMovieRepository extends _i1.Mock implements _i2.MovieRepository {
+class MockMovieRepository extends _i1.Mock implements _i3.MovieRepository {
   @override
-  _i3.Future<List<_i4.Movie>> getNowPlayingMovies() =>
+  _i4.Future<List<_i2.Movie>> getNowPlayingMovies() =>
       (super.noSuchMethod(
             Invocation.method(#getNowPlayingMovies, []),
-            returnValue: _i3.Future<List<_i4.Movie>>.value(<_i4.Movie>[]),
-            returnValueForMissingStub: _i3.Future<List<_i4.Movie>>.value(
-              <_i4.Movie>[],
+            returnValue: _i4.Future<List<_i2.Movie>>.value(<_i2.Movie>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.Movie>>.value(
+              <_i2.Movie>[],
             ),
           )
-          as _i3.Future<List<_i4.Movie>>);
+          as _i4.Future<List<_i2.Movie>>);
 
   @override
-  _i3.Future<List<_i4.Movie>> getPopularMovies() =>
+  _i4.Future<List<_i2.Movie>> getPopularMovies() =>
       (super.noSuchMethod(
             Invocation.method(#getPopularMovies, []),
-            returnValue: _i3.Future<List<_i4.Movie>>.value(<_i4.Movie>[]),
-            returnValueForMissingStub: _i3.Future<List<_i4.Movie>>.value(
-              <_i4.Movie>[],
+            returnValue: _i4.Future<List<_i2.Movie>>.value(<_i2.Movie>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.Movie>>.value(
+              <_i2.Movie>[],
             ),
           )
-          as _i3.Future<List<_i4.Movie>>);
+          as _i4.Future<List<_i2.Movie>>);
 
   @override
-  _i3.Future<List<_i4.Movie>> getTopRatedMovies() =>
+  _i4.Future<List<_i2.Movie>> getTopRatedMovies() =>
       (super.noSuchMethod(
             Invocation.method(#getTopRatedMovies, []),
-            returnValue: _i3.Future<List<_i4.Movie>>.value(<_i4.Movie>[]),
-            returnValueForMissingStub: _i3.Future<List<_i4.Movie>>.value(
-              <_i4.Movie>[],
+            returnValue: _i4.Future<List<_i2.Movie>>.value(<_i2.Movie>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.Movie>>.value(
+              <_i2.Movie>[],
             ),
           )
-          as _i3.Future<List<_i4.Movie>>);
+          as _i4.Future<List<_i2.Movie>>);
 
   @override
-  _i3.Future<List<_i4.Movie>> getUpcomingMovies() =>
+  _i4.Future<List<_i2.Movie>> getUpcomingMovies() =>
       (super.noSuchMethod(
             Invocation.method(#getUpcomingMovies, []),
-            returnValue: _i3.Future<List<_i4.Movie>>.value(<_i4.Movie>[]),
-            returnValueForMissingStub: _i3.Future<List<_i4.Movie>>.value(
-              <_i4.Movie>[],
+            returnValue: _i4.Future<List<_i2.Movie>>.value(<_i2.Movie>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.Movie>>.value(
+              <_i2.Movie>[],
             ),
           )
-          as _i3.Future<List<_i4.Movie>>);
+          as _i4.Future<List<_i2.Movie>>);
+
+  @override
+  _i4.Future<_i2.MovieDetails> getMovieDetails(String? movieId) =>
+      (super.noSuchMethod(
+            Invocation.method(#getMovieDetails, [movieId]),
+            returnValue: _i4.Future<_i2.MovieDetails>.value(
+              _FakeMovieDetails_0(
+                this,
+                Invocation.method(#getMovieDetails, [movieId]),
+              ),
+            ),
+            returnValueForMissingStub: _i4.Future<_i2.MovieDetails>.value(
+              _FakeMovieDetails_0(
+                this,
+                Invocation.method(#getMovieDetails, [movieId]),
+              ),
+            ),
+          )
+          as _i4.Future<_i2.MovieDetails>);
+
+  @override
+  _i4.Future<List<_i2.Cast>> getMovieCasts(String? movieId) =>
+      (super.noSuchMethod(
+            Invocation.method(#getMovieCasts, [movieId]),
+            returnValue: _i4.Future<List<_i2.Cast>>.value(<_i2.Cast>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.Cast>>.value(
+              <_i2.Cast>[],
+            ),
+          )
+          as _i4.Future<List<_i2.Cast>>);
 }
 
 /// A class which mocks [TvShowRepository].
@@ -84,29 +117,29 @@ class MockMovieRepository extends _i1.Mock implements _i2.MovieRepository {
 /// See the documentation for Mockito's code generation for more information.
 class MockTvShowRepository extends _i1.Mock implements _i5.TvShowRepository {
   @override
-  _i3.Future<List<_i6.TvShow>> getPopularTvShows() =>
+  _i4.Future<List<_i2.TvShow>> getPopularTvShows() =>
       (super.noSuchMethod(
             Invocation.method(#getPopularTvShows, []),
-            returnValue: _i3.Future<List<_i6.TvShow>>.value(<_i6.TvShow>[]),
-            returnValueForMissingStub: _i3.Future<List<_i6.TvShow>>.value(
-              <_i6.TvShow>[],
+            returnValue: _i4.Future<List<_i2.TvShow>>.value(<_i2.TvShow>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.TvShow>>.value(
+              <_i2.TvShow>[],
             ),
           )
-          as _i3.Future<List<_i6.TvShow>>);
+          as _i4.Future<List<_i2.TvShow>>);
 }
 
 /// A class which mocks [PersonRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPersonRepository extends _i1.Mock implements _i7.PersonRepository {
+class MockPersonRepository extends _i1.Mock implements _i6.PersonRepository {
   @override
-  _i3.Future<List<_i8.Person>> getPopularPeople() =>
+  _i4.Future<List<_i2.Person>> getPopularPeople() =>
       (super.noSuchMethod(
             Invocation.method(#getPopularPeople, []),
-            returnValue: _i3.Future<List<_i8.Person>>.value(<_i8.Person>[]),
-            returnValueForMissingStub: _i3.Future<List<_i8.Person>>.value(
-              <_i8.Person>[],
+            returnValue: _i4.Future<List<_i2.Person>>.value(<_i2.Person>[]),
+            returnValueForMissingStub: _i4.Future<List<_i2.Person>>.value(
+              <_i2.Person>[],
             ),
           )
-          as _i3.Future<List<_i8.Person>>);
+          as _i4.Future<List<_i2.Person>>);
 }

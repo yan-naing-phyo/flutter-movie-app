@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/ui/home/home.dart';
+
+import 'app_network_image.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({super.key, required this.imageUrl});
@@ -10,10 +11,10 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Image.asset('assets/images/profile.jpg');
     return AspectRatio(
       aspectRatio: _aspectRatio,
       child: AppNetworkImage(imageUrl: imageUrl),
+      // child: Image.asset('assets/images/profile.jpg'),
     );
   }
 }

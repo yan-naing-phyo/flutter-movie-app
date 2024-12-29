@@ -15,6 +15,10 @@ class TvShowRequestFailure implements Exception {}
 
 class PersonRequestFailure implements Exception {}
 
+class MovieDetailsRequestFailure implements Exception {}
+
+class MovieCreditsRequestFailure implements Exception {}
+
 class TmdbApi implements MovieApi {
   TmdbApi({
     http.Client? httpClient,
@@ -98,6 +102,30 @@ class TmdbApi implements MovieApi {
       getPopularPeopleRequest,
       onSuccess: (bodyJson) => PersonListResponse.fromJson(bodyJson),
       onFailure: () => PersonRequestFailure(),
+    );
+  }
+
+  @override
+  Future<MovieDetailsResponse> getMovieDetails(String movieId) {
+    final getMovieDetailsRequest =
+        _requestBuilder.buildGetMovieDetailsRequest(movieId);
+
+    return _getData(
+      getMovieDetailsRequest,
+      onSuccess: (bodyJson) => MovieDetailsResponse.fromJson(bodyJson),
+      onFailure: () => MovieDetailsRequestFailure(),
+    );
+  }
+
+  @override
+  Future<MovieCreditsResponse> getMovieCredits(String movieId) {
+    final getMovieCreditsRequest =
+        _requestBuilder.buildGetMovieCreditsRequest(movieId);
+
+    return _getData(
+      getMovieCreditsRequest,
+      onSuccess: (bodyJson) => MovieCreditsResponse.fromJson(bodyJson),
+      onFailure: () => MovieCreditsRequestFailure(),
     );
   }
 

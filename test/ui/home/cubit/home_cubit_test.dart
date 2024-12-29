@@ -1,7 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_movie_app/data/models/movie.dart';
-import 'package:flutter_movie_app/data/models/person.dart';
-import 'package:flutter_movie_app/data/models/tv_show.dart';
+import 'package:flutter_movie_app/data/models/models.dart';
 import 'package:flutter_movie_app/data/repositories/movie_repository.dart';
 import 'package:flutter_movie_app/data/repositories/person_repository.dart';
 import 'package:flutter_movie_app/data/repositories/tv_show_repository.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/data/models/movie.dart';
 import 'package:flutter_movie_app/ui/home/home.dart';
+import 'package:flutter_movie_app/ui/movie_details/view/movie_details_page.dart';
+import 'package:flutter_movie_app/ui/widgets/widgets.dart';
 
 class MovieList extends StatelessWidget {
   const MovieList({
@@ -57,13 +59,21 @@ class _MovieListView extends StatelessWidget {
   }
 
   Widget _buildMovieItem(BuildContext context, {required Movie movie}) =>
-      Container(
-        width: _itemWidth,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainer,
-          borderRadius: BorderRadius.circular(10),
+      InkWell(
+        onTap: () {
+          // Go to movie details screen.
+          Navigator.of(context).push(
+            MovieDetailsPage.route(movie.id.toString()),
+          );
+        },
+        child: Container(
+          width: _itemWidth,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: MovieItem(movie: movie),
         ),
-        clipBehavior: Clip.antiAlias,
-        child: MovieItem(movie: movie),
       );
 }

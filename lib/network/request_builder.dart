@@ -6,6 +6,7 @@ const _getTopRatedMoviesPath = '/3/movie/top_rated';
 const _getUpcomingMoviesPath = '/3/movie/upcoming';
 const _getPopularTvShowsPath = '/3/tv/popular';
 const _getPopularPeoplePath = '/3/person/popular';
+const _getMovieDetailsPath = '/3/movie/';
 
 class RequestBuilder {
   const RequestBuilder({
@@ -28,6 +29,12 @@ class RequestBuilder {
   Uri buildGetPopularTvShowsRequest() => _buildRequest(_getPopularTvShowsPath);
 
   Uri buildGetPopularPeopleRequest() => _buildRequest(_getPopularPeoplePath);
+
+  Uri buildGetMovieDetailsRequest(String movieId) =>
+      _buildRequest(_getMovieDetailsPath + movieId);
+
+  Uri buildGetMovieCreditsRequest(String movieId) =>
+      _buildRequest('/3/movie/$movieId/credits');
 
   Uri _buildRequest(String path) => Uri.https(
         apiBaseUrl,

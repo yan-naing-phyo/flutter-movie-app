@@ -105,7 +105,10 @@ class HomePopulated extends StatelessWidget {
         SizedBox(height: 24.0),
         TvShowList(tvShows: popularTvShows),
         SizedBox(height: 24.0),
-        PersonList(people: popularCelebrities),
+        PersonList(
+          header: 'Popular Celebrities',
+          people: popularCelebrities,
+        ),
       ],
     );
   }

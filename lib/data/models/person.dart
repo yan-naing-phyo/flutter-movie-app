@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-enum Gender { unknown, female, male }
+import 'gender.dart';
 
 class Person extends Equatable {
   const Person({

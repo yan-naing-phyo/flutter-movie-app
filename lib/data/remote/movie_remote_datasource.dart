@@ -14,4 +14,8 @@ abstract class MovieRemoteDatasource {
   Future<List<Movie>> getTopRatedMovies();
 
   Future<List<Movie>> getUpcomingMovies();
+
+  Future<MovieDetails> getMovieDetails(String movieId);
+
+  Future<List<Cast>> getMovieCasts(String movieId);
 }

@@ -1,9 +1,9 @@
-import 'package:flutter_movie_app/data/models/person.dart';
 import 'package:flutter_movie_app/data/remote/person_remote_datasource.dart';
 import 'package:flutter_movie_app/data/repositories/impl/person_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:flutter_movie_app/data/models/models.dart';
 
 @GenerateNiceMocks([MockSpec<PersonRemoteDatasource>()])
 import 'person_repository_impl_test.mocks.dart';

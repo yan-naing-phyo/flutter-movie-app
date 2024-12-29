@@ -5,15 +5,15 @@ void main() {
   group('DateParser', () {
     group('parse', () {
       test('parse formatted date string', () {
-        expect(DateParser.parse('2024-10-31'), DateTime(2024, 10, 31));
+        expect(ApiDateParser.parse('2024-10-31'), DateTime(2024, 10, 31));
       });
 
       test('returns null when date string is empty', () {
-        expect(DateParser.parse(''), isNull);
+        expect(ApiDateParser.parse(''), isNull);
       });
 
       test('returns null when date string is invalid', () {
-        expect(DateParser.parse('dateString'), isNull);
+        expect(ApiDateParser.parse('dateString'), isNull);
       });
     });
   });

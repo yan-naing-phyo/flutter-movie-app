@@ -1,11 +1,7 @@
 import 'package:flutter_movie_app/data/models/models.dart';
-import 'package:flutter_movie_app/network/models/models.dart';
 import 'package:flutter_movie_app/network/movie_api.dart';
-
-import '../utils/image_url_builder.dart';
-import '../utils/date_parser.dart';
-
 import '../movie_remote_datasource.dart';
+import 'api_movie_converter.dart';
 
 class MovieRemoteDatasourceImpl implements MovieRemoteDatasource {
   const MovieRemoteDatasourceImpl({required this.movieApi});
@@ -39,25 +35,22 @@ class MovieRemoteDatasourceImpl implements MovieRemoteDatasource {
 
     return movieListResponse.results.toDomainMovies();
   }
-}
 
-extension on ApiMovie {
-  Movie toDomainMovie() => Movie(
-        backdropImageUrl:
-            ImageUrlBuilder.buildBackdropImageUrl(backdropPath) ?? '',
-        id: id,
-        overview: overview,
-        popularity: popularity,
-        posterImageUrl: ImageUrlBuilder.buildPosterImageUrl(posterPath) ?? '',
-        releaseDate: DateParser.parse(releaseDate),
-        title: title,
-        voteAverage: voteAverage,
-        voteCount: voteCount,
-      );
-}
+  @override
+  Future<List<Cast>> getMovieCasts(String movieId) async {
+    final movieCreditsResponse = await movieApi.getMovieCredits(movieId);
 
-extension on List<ApiMovie> {
-  List<Movie> toDomainMovies() => map(
-        (apiMovie) => apiMovie.toDomainMovie(),
-      ).toList();
+    return movieCreditsResponse.cast
+        .map(
+          (apiCast) => apiCast.toDomainCast(),
+        )
+        .toList();
+  }
+
+  @override
+  Future<MovieDetails> getMovieDetails(String movieId) async {
+    final response = await movieApi.getMovieDetails(movieId);
+
+    return response.toDomainMovieDetails();
+  }
 }
