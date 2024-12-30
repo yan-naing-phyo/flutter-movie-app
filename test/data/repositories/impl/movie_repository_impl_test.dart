@@ -1,3 +1,4 @@
+import 'package:flutter_movie_app/data/local/movie_local_datasource.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -6,7 +7,10 @@ import 'package:flutter_movie_app/data/models/models.dart';
 import 'package:flutter_movie_app/data/repositories/impl/movie_repository_impl.dart';
 import 'package:flutter_movie_app/data/remote/movie_remote_datasource.dart';
 
-@GenerateNiceMocks([MockSpec<MovieRemoteDatasource>()])
+@GenerateNiceMocks([
+  MockSpec<MovieRemoteDatasource>(),
+  MockSpec<MovieLocalDatasource>(),
+])
 import 'movie_repository_impl_test.mocks.dart';
 
 final _movie = Movie(
@@ -49,12 +53,20 @@ final fakeMovieDetails = MovieDetails(
 );
 
 void main() {
+  late MockMovieLocalDatasource movieLocalDatasource;
+
+  setUp(() {
+    movieLocalDatasource = MockMovieLocalDatasource();
+  });
+
   group('MovieRepositoryImpl', () {
     group('getPopularMovies', () {
       test('calls getPopularMovies from remote datasource', () async {
         final movieRemoteDatasource = MockMovieRemoteDatasource();
+
         final movieRepository = MovieRepositoryImpl(
           movieRemoteDatasource: movieRemoteDatasource,
+          movieLocalDatasource: movieLocalDatasource,
         );
         when(movieRemoteDatasource.getPopularMovies())
             .thenAnswer((_) async => [_movie]);
@@ -68,8 +80,10 @@ void main() {
       test('throws when getPopularMovies from remote datasource fails',
           () async {
         final movieRemoteDatasource = MockMovieRemoteDatasource();
-        final movieRepository =
-            MovieRepositoryImpl(movieRemoteDatasource: movieRemoteDatasource);
+        final movieRepository = MovieRepositoryImpl(
+          movieRemoteDatasource: movieRemoteDatasource,
+          movieLocalDatasource: movieLocalDatasource,
+        );
         when(movieRemoteDatasource.getPopularMovies())
             .thenThrow(Exception('error'));
 
@@ -86,8 +100,10 @@ void main() {
       test('calls getMovieDetails from remote source with correct movieId',
           () async {
         final remoteSource = MockMovieRemoteDatasource();
-        final repository =
-            MovieRepositoryImpl(movieRemoteDatasource: remoteSource);
+        final repository = MovieRepositoryImpl(
+          movieRemoteDatasource: remoteSource,
+          movieLocalDatasource: movieLocalDatasource,
+        );
 
         await repository.getMovieDetails(movieId);
 
@@ -96,9 +112,12 @@ void main() {
 
       test('throws when getMovieDetails from remote source fails', () {
         final remoteSource = MockMovieRemoteDatasource();
-        final repository =
-            MovieRepositoryImpl(movieRemoteDatasource: remoteSource);
-        when(remoteSource.getMovieDetails(movieId)).thenThrow(Exception('fails'));
+        final repository = MovieRepositoryImpl(
+          movieRemoteDatasource: remoteSource,
+          movieLocalDatasource: movieLocalDatasource,
+        );
+        when(remoteSource.getMovieDetails(movieId))
+            .thenThrow(Exception('fails'));
 
         expect(
           () async => repository.getMovieDetails(movieId),
@@ -110,8 +129,10 @@ void main() {
           'returns the correct MovieDetails when getMovieDetails from remote source success',
           () async {
         final remoteSource = MockMovieRemoteDatasource();
-        final repository =
-            MovieRepositoryImpl(movieRemoteDatasource: remoteSource);
+        final repository = MovieRepositoryImpl(
+          movieRemoteDatasource: remoteSource,
+          movieLocalDatasource: movieLocalDatasource,
+        );
         when(remoteSource.getMovieDetails(movieId))
             .thenAnswer((_) async => fakeMovieDetails);
 
@@ -141,8 +162,10 @@ void main() {
 
       test('calls getMovieCasts from remote datasource', () async {
         final movieRemoteDatasource = MockMovieRemoteDatasource();
-        final movieRepository =
-            MovieRepositoryImpl(movieRemoteDatasource: movieRemoteDatasource);
+        final movieRepository = MovieRepositoryImpl(
+          movieRemoteDatasource: movieRemoteDatasource,
+          movieLocalDatasource: movieLocalDatasource,
+        );
         when(movieRemoteDatasource.getMovieCasts(movieId))
             .thenAnswer((_) async => fakeMovieCasts);
 
@@ -154,8 +177,10 @@ void main() {
 
       test('throws when getMovieCasts from remote datasource fails', () {
         final movieRemoteDatasource = MockMovieRemoteDatasource();
-        final movieRepository =
-            MovieRepositoryImpl(movieRemoteDatasource: movieRemoteDatasource);
+        final movieRepository = MovieRepositoryImpl(
+          movieRemoteDatasource: movieRemoteDatasource,
+          movieLocalDatasource: movieLocalDatasource,
+        );
         when(movieRemoteDatasource.getMovieCasts(movieId))
             .thenThrow(Exception('fails'));
 

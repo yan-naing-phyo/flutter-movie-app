@@ -24,6 +24,7 @@ class MovieDetailsView extends StatelessWidget {
                 return _MovieDetailsSuccessView(
                   movieDetails: state.movieDetails,
                   casts: state.casts,
+                  addedToWatchlist: state.addedToWatchlist,
                 );
 
               case MovieDetailsFailure():
@@ -41,41 +42,138 @@ class MovieDetailsView extends StatelessWidget {
   }
 }
 
-class _MovieDetailsSuccessView extends StatelessWidget {
+class _MovieDetailsSuccessView extends StatefulWidget {
   const _MovieDetailsSuccessView({
     required this.movieDetails,
     required this.casts,
+    required this.addedToWatchlist,
   });
 
   final MovieDetails movieDetails;
   final List<Cast> casts;
+  final bool addedToWatchlist;
+
+  @override
+  State<_MovieDetailsSuccessView> createState() =>
+      _MovieDetailsSuccessViewState();
+}
+
+class _MovieDetailsSuccessViewState extends State<_MovieDetailsSuccessView> {
+  bool _addedToWatchlist = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _addedToWatchlist = widget.addedToWatchlist;
+  }
+
+  void _showMovieAddedSnackbar() {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            _addedToWatchlist
+                ? 'Movie added to watchlist'
+                : 'Movie removed from watchlist',
+          ),
+          duration: Duration(seconds: 1),
+        ),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.only(bottom: 24),
       children: [
-        MovieDetailsHeader(movieDetails: movieDetails),
+        MovieDetailsHeader(movieDetails: widget.movieDetails),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: _addedToWatchlist
+              ? _RemoveFromWatchlistButton(
+                  onPressed: () {
+                    // Remove movie from watchlist.
+                    context.read<MovieDetailsCubit>().removeMovieFromWatchlist(
+                          widget.movieDetails.id.toString(),
+                        );
+                    setState(() {
+                      _addedToWatchlist = false;
+                    });
+                    _showMovieAddedSnackbar();
+                  },
+                )
+              : _AddToWatchlistButton(
+                  onPressed: () {
+                    // Add movie to watchlist.
+                    context
+                        .read<MovieDetailsCubit>()
+                        .addMovieToWatchlist(widget.movieDetails);
+                    setState(() {
+                      _addedToWatchlist = true;
+                    });
+                    _showMovieAddedSnackbar();
+                  },
+                ),
+        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: _MovieOverview(
-            overview: movieDetails.overview,
+            overview: widget.movieDetails.overview,
           ),
         ),
         Divider(),
         PersonList(
           header: 'Top Billed Cast',
-          people: casts,
+          people: widget.casts,
         ),
         SizedBox(height: 24),
         Divider(),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: _MovieDetails(
-            movieDetails: movieDetails,
+            movieDetails: widget.movieDetails,
           ),
         ),
       ],
+    );
+  }
+}
+
+class _AddToWatchlistButton extends StatelessWidget {
+  const _AddToWatchlistButton({
+    required this.onPressed,
+  });
+
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.tonalIcon(
+      icon: Icon(Icons.add),
+      onPressed: onPressed,
+      style: FilledButton.styleFrom(
+        shape: RoundedRectangleBorder(),
+      ),
+      label: Text('Add to watchlist'),
+    );
+  }
+}
+
+class _RemoveFromWatchlistButton extends StatelessWidget {
+  const _RemoveFromWatchlistButton({super.key, required this.onPressed});
+
+  final void Function() onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.icon(
+      icon: Icon(Icons.bookmark_added),
+      onPressed: onPressed,
+      style: FilledButton.styleFrom(
+        shape: RoundedRectangleBorder(),
+      ),
+      label: Text('Remove from watchlist'),
     );
   }
 }

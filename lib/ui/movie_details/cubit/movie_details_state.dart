@@ -15,13 +15,15 @@ class MovieDetailsSuccess extends MovieDetailsState {
   const MovieDetailsSuccess({
     required this.movieDetails,
     required this.casts,
+    this.addedToWatchlist = false,
   });
 
   final MovieDetails movieDetails;
   final List<Cast> casts;
+  final bool addedToWatchlist;
 
   @override
-  List<Object?> get props => [movieDetails, casts];
+  List<Object?> get props => [movieDetails, casts, addedToWatchlist];
 }
 
 class MovieDetailsFailure extends MovieDetailsState {

@@ -9,6 +9,11 @@ class ProductionCountry extends Equatable {
   final String iso_3166_1;
   final String name;
 
+  Map<String, dynamic> toMap() => {
+        'iso_3166_1': iso_3166_1,
+        'name': name,
+      };
+
   @override
   List<Object?> get props => [iso_3166_1, name];
 }

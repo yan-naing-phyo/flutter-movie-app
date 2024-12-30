@@ -16,15 +16,26 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     try {
       final movieDetails = await movieRepository.getMovieDetails(movieId);
       final movieCasts = await movieRepository.getMovieCasts(movieId);
+      final addedToWatchlist =
+          (await movieRepository.findWatchlistMovieById(movieId) != null);
 
       emit(
         MovieDetailsSuccess(
           movieDetails: movieDetails,
           casts: movieCasts,
+          addedToWatchlist: addedToWatchlist,
         ),
       );
     } catch (e) {
       emit(MovieDetailsFailure(e));
     }
+  }
+
+  void addMovieToWatchlist(MovieDetails movie) async {
+    await movieRepository.addMovieToWatchlist(movie);
+  }
+
+  void removeMovieFromWatchlist(String movieId) async {
+    await movieRepository.removeMovieFromWatchlist(movieId);
   }
 }

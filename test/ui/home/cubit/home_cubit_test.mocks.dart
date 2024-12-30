@@ -110,6 +110,43 @@ class MockMovieRepository extends _i1.Mock implements _i3.MovieRepository {
             ),
           )
           as _i4.Future<List<_i2.Cast>>);
+
+  @override
+  _i4.Future<void> addMovieToWatchlist(_i2.MovieDetails? movie) =>
+      (super.noSuchMethod(
+            Invocation.method(#addMovieToWatchlist, [movie]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  _i4.Future<_i2.MovieDetails?> findWatchlistMovieById(String? movieId) =>
+      (super.noSuchMethod(
+            Invocation.method(#findWatchlistMovieById, [movieId]),
+            returnValue: _i4.Future<_i2.MovieDetails?>.value(),
+            returnValueForMissingStub: _i4.Future<_i2.MovieDetails?>.value(),
+          )
+          as _i4.Future<_i2.MovieDetails?>);
+
+  @override
+  _i4.Stream<List<_i2.MovieDetails>> getAllMoviesFromWatchlist() =>
+      (super.noSuchMethod(
+            Invocation.method(#getAllMoviesFromWatchlist, []),
+            returnValue: _i4.Stream<List<_i2.MovieDetails>>.empty(),
+            returnValueForMissingStub:
+                _i4.Stream<List<_i2.MovieDetails>>.empty(),
+          )
+          as _i4.Stream<List<_i2.MovieDetails>>);
+
+  @override
+  _i4.Future<void> removeMovieFromWatchlist(String? movieId) =>
+      (super.noSuchMethod(
+            Invocation.method(#removeMovieFromWatchlist, [movieId]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 }
 
 /// A class which mocks [TvShowRepository].

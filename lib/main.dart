@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movie_app/app_bloc_observer.dart';
+import 'package:flutter_movie_app/data/local/movie_local_datasource.dart';
 import 'package:flutter_movie_app/data/remote/person_remote_datasource.dart';
 import 'package:flutter_movie_app/data/repositories/movie_repository.dart';
 import 'package:flutter_movie_app/data/remote/movie_remote_datasource.dart';
@@ -8,20 +9,28 @@ import 'package:flutter_movie_app/data/remote/tv_show_remote_datasource.dart';
 import 'package:flutter_movie_app/data/repositories/person_repository.dart';
 import 'package:flutter_movie_app/data/repositories/tv_show_repository.dart';
 import 'package:flutter_movie_app/network/movie_api.dart';
+import 'package:flutter_movie_app/persistence/db_helper.dart';
+import 'package:flutter_movie_app/ui/main_page.dart';
 
-import 'ui/home/view/home_page.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
   Bloc.observer = AppBlocObserver();
 
   final movieApi = MovieApi();
+
+  final DbHelper dbHelper = DbHelper.instance;
+  await dbHelper.initialize();
 
   runApp(
     MultiRepositoryProvider(
       providers: [
         /// Provide [MovieRepository] to the widget tree.
         RepositoryProvider(
-          create: (_) => MovieRepository(MovieRemoteDatasource(movieApi)),
+          create: (_) => MovieRepository(
+            MovieRemoteDatasource(movieApi),
+            MovieLocalDatasource(dbHelper.movieDao),
+          ),
         ),
 
         /// Provide [TvShowRepository] to the widget tree.
@@ -53,7 +62,7 @@ class MovieApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const MainPage(),
     );
   }
 }

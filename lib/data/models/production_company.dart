@@ -13,6 +13,13 @@ class ProductionCompany extends Equatable {
   final String name;
   final String originCountry;
 
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'logoImageUrl': logoImageUrl,
+        'name': name,
+        'originCountry': originCountry,
+      };
+
   @override
   List<Object?> get props => [id, logoImageUrl, name, originCountry];
 }
