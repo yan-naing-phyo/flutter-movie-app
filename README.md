@@ -1,16 +1,15 @@
 # flutter_movie_app
 
-A new Flutter project.
+A movie app built with Flutter. Users can explore the latest releases, top-rated films and 
+add movies to watchlist. 
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
+### Home Screen
+![Home Screen](assets/screenshots/home_screen_1.png)
+![Home Movie List](assets/screenshots/home_screen_2.png)
+![Home Tv Shows and Celebrities](assets/screenshots/home_screen_3.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Details Screen
+![Details Screen](assets/screenshots/movie_details_screen_1.png)
+![Casts and Details](assets/screenshots/movie_details_screen_3.png)
